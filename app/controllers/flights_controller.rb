@@ -4,7 +4,9 @@ class FlightsController < ApplicationController
   # GET /flights
   # GET /flights.json
   def index
-    @flights = Flight.all
+    @flights_from = Flight.all.map{ |u| [ u.from_airport.code, u.id] }
+    @flights_to = Flight.all.map{ |u| [ u.to_airport.code, u.id] }
+    #@flights = Flight.find_by(params[:search])
   end
 
   # GET /flights/1

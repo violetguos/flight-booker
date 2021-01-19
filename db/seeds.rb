@@ -6,12 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# ActiveRecord::Base.transaction do
-#   Flight.destroy_all
-#   Airport.destroy_all
+ActiveRecord::Base.transaction do
+  Flight.destroy_all
+  Airport.destroy_all
 
-# end
+end
 
 
-Airport.create([{code: 'SFO'}, {code: 'LAX'}])
-Flight.create([{from_airport_id: Airport.first.id, to_airport_id: Airport.last.id}])
+Airport.create([{code: 'SFO'}, {code: 'LAX'}, {code: 'JFK'}])
+Flight.create([{from_airport_id: Airport.all[0].id, to_airport_id: Airport.all[1].id},
+     {from_airport_id:  Airport.all[1].id, to_airport_id:  Airport.all[2].id}])
