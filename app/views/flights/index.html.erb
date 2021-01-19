@@ -4,14 +4,17 @@
 
 
  
-<%= form_with url: "/flights", method: :get do |form| %>
-  <%= form.label :flights, "Search for:" %>
-  <%= form.select :from_airport, @flights_from %>
-    <%= form.select :to_airport, @flights_to %>
+<%= form_tag(flights_path, method: :get) do  %>
+  <%= select_tag :from_airport_id, options_for_select(@flights_from) %>
 
-  <%= form.submit "Search" %>
+    <%#= form.select :to_airport, @flights_to %>
+
+  <%= submit_tag "Search" , name: nil %>
 <% end %>
 
+<%if @flights%>
 
+  <%=@flights%>
+<%end%>
 
 <%= link_to 'New Flight', new_flight_path %>
