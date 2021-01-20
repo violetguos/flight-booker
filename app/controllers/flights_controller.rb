@@ -7,8 +7,8 @@ class FlightsController < ApplicationController
     @flights_from = Flight.all.map{ |u| [ u.from_airport.code, u.id] }
     @flights_to = Flight.all.map{ |u| [ u.to_airport.code, u.id] }
 
-    if params[:from_airport_id]
-      @flights = Flight.find_by(from_airport_id: params[:from_airport_id])
+    if params[:flight]
+      @flights = Flight.search(flight_params)
     end
   end
 
@@ -74,6 +74,6 @@ class FlightsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def flight_params
-      params.require(:flight).permit(:search, :from_airport_id, :to_airport_id)
+      params.require(:flight).permit(:from_airport_id, :to_airport_id)
     end
 end

@@ -4,7 +4,8 @@ class Flight < ApplicationRecord
 
   def self.search(search)
     if search
-      flight = Flight.find_by(from_airport: search)
+      flights = Flight.where("from_airport_id = ?", search[:from_airport_id]) if search[:from_airport_id].present?
     end
+    return flights
   end
 end
