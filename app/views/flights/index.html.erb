@@ -11,9 +11,12 @@
     <%#= form.select :to_airport, @flights_to %>
 
         <%= f.submit "Search"%>
-  <% end %>
+<% end %>
 
 
-  <%=@flights%>
+<%if !@flights.empty?%>
+  <%= render 'results'%>
+
+<%end%>
 
 <%= link_to 'New Flight', new_flight_path %>

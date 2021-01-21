@@ -1,0 +1,6 @@
+<h1>results</h1>
+
+
+<% @flights.each do |f|%>
+    <%=f.from_airport.code%> to <%=f.to_airport.code%> 
+<%end%>
