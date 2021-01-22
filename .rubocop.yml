@@ -1,0 +1,5 @@
+AllCops:
+  TargetRubyVersion: 2.7.2
+  SuggestExtensions: false
+
+require: rubocop-rails

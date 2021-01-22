@@ -9,10 +9,19 @@
 ActiveRecord::Base.transaction do
   Flight.destroy_all
   Airport.destroy_all
-
 end
 
+AIRPORTS = %w[SFO LAX JFK]
 
-Airport.create([{code: 'SFO'}, {code: 'LAX'}, {code: 'JFK'}])
-Flight.create([{from_airport_id: Airport.all[0].id, to_airport_id: Airport.all[1].id},
-     {from_airport_id:  Airport.all[1].id, to_airport_id:  Airport.all[2].id}])
+AIRPORTS.each do |a|
+  Airport.create(code: a)
+end
+
+# Date.new(2021, 5, 1).upto(Date.new(2021, 9, 30)).each do |date|
+
+Flight.create([{ from_airport_id: Airport.all[0].id, to_airport_id: Airport.all[1].id,
+                 takeoff_day: Date.new(2021, 5, 1) },
+               { from_airport_id: Airport.all[1].id, to_airport_id: Airport.all[2].id,
+                 takeoff_day: Date.new(2021, 5, 3) },
+               { from_airport_id: Airport.all[2].id, to_airport_id: Airport.all[1].id,
+                 takeoff_day: Date.new(2021, 5, 7) }])
