@@ -6,16 +6,20 @@
  
 <%= simple_form_for :flight, url: root_path, method: "GET", local: true do |f| %>
   <%= f.input :from_airport_id, as: :select, 
-          collection: @flights_from, label: false,
-           include_blank: "From...", required: false %>
-    <%#= form.select :to_airport, @flights_to %>
+        collection: @airport_options, label: "From", required: false %>
+  <%= f.input :to_airport_id, as: :select,  
+        collection: @airport_options, label: "To", required: false %>
+
 
         <%= f.submit "Search"%>
 <% end %>
 
 
-<%if !@flights.empty?%>
-  <%= render 'results'%>
+<%if @flights%>
+  
+<% @flights.each do |f|%>
+    <%=f.from_airport.code%> to <%=f.to_airport.code%> 
+<%end%>
 
 <%end%>
 

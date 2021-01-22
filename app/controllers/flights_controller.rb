@@ -1,14 +1,15 @@
+
 class FlightsController < ApplicationController
   before_action :set_flight, only: [:show, :edit, :update, :destroy]
 
   # GET /flights
   # GET /flights.json
   def index
-    @flights_from = Flight.all.map{ |u| [ u.from_airport.code, u.id] }
-    @flights_to = Flight.all.map{ |u| [ u.to_airport.code, u.id] }
+    @airport_options = Airport.all.map{ |u| [ u.code, u.id] }
 
     if params[:flight]
-      @flights = Flight.search(flight_params)
+      flight_params.reject!{|_, v| v.blank?}
+      @flights = Flight.search(params[:flight])
     end
   end
 
