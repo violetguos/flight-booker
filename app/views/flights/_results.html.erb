@@ -1,6 +1,15 @@
 <h1>results</h1>
 
 
-<% @flights.each do |f|%>
-    <%=f.from_airport.code%> to <%=f.to_airport.code%> 
+
+
+
+<%= simple_form_for :booking, url: new_booking_path, method: "GET", local: true do |f| %>
+<% @flights.each do |flt|%>
+    <%=flt.from_airport.code%> to <%=flt.to_airport.code%> 
+                      <%= f.radio_button :flight_id, flt.id %>
+
+
+<%end%>
+        <%= f.submit "Select Flight"%>
 <%end%>
