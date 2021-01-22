@@ -21,6 +21,8 @@ end
 
 Flight.create([{ from_airport_id: Airport.all[0].id, to_airport_id: Airport.all[1].id,
                  takeoff_day: Date.new(2021, 5, 1) },
+               { from_airport_id: Airport.all[0].id, to_airport_id: Airport.all[1].id,
+                 takeoff_day: Date.new(2021, 5, 2) },
                { from_airport_id: Airport.all[1].id, to_airport_id: Airport.all[2].id,
                  takeoff_day: Date.new(2021, 5, 3) },
                { from_airport_id: Airport.all[2].id, to_airport_id: Airport.all[1].id,

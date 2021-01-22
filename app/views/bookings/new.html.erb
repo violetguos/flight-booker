@@ -1,5 +1,5 @@
 <h1>New Booking</h1>
 
-<%= @booking.flight.from_airport.code %>
+  <%= @booking.flight.from_airport.code%> to <%=  @booking.flight.to_airport.code %> <%=@booking.flight.takeoff_day%>
 
 <%= link_to 'Back', bookings_path %>
