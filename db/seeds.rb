@@ -9,6 +9,8 @@
 ActiveRecord::Base.transaction do
   Flight.destroy_all
   Airport.destroy_all
+  Passenger.destroy_all
+  Booking.destroy_all
 end
 
 AIRPORTS = %w[SFO LAX JFK]
@@ -27,3 +29,5 @@ Flight.create([{ from_airport_id: Airport.all[0].id, to_airport_id: Airport.all[
                  takeoff_day: Date.new(2021, 5, 3) },
                { from_airport_id: Airport.all[2].id, to_airport_id: Airport.all[1].id,
                  takeoff_day: Date.new(2021, 5, 7) }])
+p = Passenger.create(first_name: 'Michael', last_name: 'Scott', email: 'michael@dm.com')
+Booking.create(flight_id: Flight.first.id, passengers: [p])

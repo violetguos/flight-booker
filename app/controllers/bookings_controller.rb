@@ -5,6 +5,7 @@ class BookingsController < ApplicationController
   # GET /bookings.json
   def index
     @bookings = Booking.all
+    booking_params.reject! { |_, v| v.blank? }
   end
 
   # GET /bookings/1
@@ -13,7 +14,11 @@ class BookingsController < ApplicationController
 
   # GET /bookings/new
   def new
-    @booking = Booking.new(booking_params)
+    @booking = if booking_params
+                 Booking.new(booking_params)
+               else
+                 Booking.new
+               end
   end
 
   # GET /bookings/1/edit
@@ -68,6 +73,6 @@ class BookingsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def booking_params
-    params.require(:booking).permit(:flight_id)
+    params.require(:booking).permit(:flight_id, passengers_attributes: %i[id first_name last_name email])
   end
 end
