@@ -5,7 +5,6 @@ class BookingsController < ApplicationController
   # GET /bookings.json
   def index
     @bookings = Booking.all
-    booking_params.reject! { |_, v| v.blank? }
   end
 
   # GET /bookings/1
@@ -15,6 +14,7 @@ class BookingsController < ApplicationController
   # GET /bookings/new
   def new
     @booking = Booking.new
+    booking_params.reject! { |_, v| v.blank? }
     @booking.flight = Flight.find(params[:booking][:flight_id])
     @booking.passengers.build
   end
