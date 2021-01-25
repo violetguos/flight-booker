@@ -9,7 +9,7 @@
         collection: @airport_options, label: "From", required: false %>
   <%= f.input :to_airport_id, as: :select,  
         collection: @airport_options, label: "To", required: false %>
-  <%= f.input :takeoff_day, as: :select, collection: @date_options,
+  <%= f.input :takeoff, as: :select, collection: @date_options,
     label: "Date", required: false %>
   <%= f.input :num_passenger, as: :select, collection: (1..4), selected: 1,
     label: "Number of passengers", required: true%>
@@ -23,4 +23,3 @@
   <p>Please select at least one flight option</p>
 <%end%>
 
-<%= link_to 'New Flight', new_flight_path %>

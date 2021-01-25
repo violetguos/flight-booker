@@ -31,9 +31,7 @@ Airport.all.each do |air|
   from_airport = air
   to_airport = Airport.all.sample
   to_airport = Airport.all.sample until to_airport != from_airport
-  time = Faker::Time.between(from: Time.now + 1, to: Time.now + 200)
-  date = Date.today + rand(200)
+  time = Faker::Time.between(from: DateTime.now + 1, to: DateTime.now + 200, format: :default)
   duration = rand(100...300)  # in minutes
-  Flight.create({ from_airport_id: from_airport.id, to_airport_id: to_airport.id, takeoff_day: date,
-                  takeoff_time: time, duration: duration })
+  Flight.create({ from_airport_id: from_airport.id, to_airport_id: to_airport.id, takeoff: time, duration: duration })
 end

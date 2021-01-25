@@ -22,11 +22,11 @@
       </td>
 
       <td>
-      x
+        <%=flt.takeoff%>
       </td>
 
       <td>
-      x
+        <%=flt.duration / 60.to_i %> hrs and <%=flt.duration % 60.to_i %> minutes
       </td>
 
       <td>
@@ -38,7 +38,7 @@
   <%end%>
 
 <%= f.submit "Select Flight"%>
-<%end%>
-
 </tbody>
 </table>
+<%end%>
+

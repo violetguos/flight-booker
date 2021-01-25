@@ -2,7 +2,7 @@
   <%= @booking.flight.from_airport.code%> to <%= @booking.flight.to_airport.code %>
   <br>
   Take off
-  <%= @booking.flight.takeoff_day %>  <%= @booking.flight.takeoff_time.strftime("%H:%M:%S") %>
+        <%=@booking.flight.takeoff%>
   <br>
   <%= @booking.flight.duration / 60.to_i %> hours and <%=@booking.flight.duration % 60.to_i%> minutes
   <br>

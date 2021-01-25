@@ -5,7 +5,7 @@ class FlightsController < ApplicationController
   # GET /flights.json
   def index
     @airport_options = Airport.all.map { |u| [u.code, u.id] }
-    @date_options = Flight.all.map { |u| [u.takeoff_day, u.id] }
+    @date_options = Flight.all.map { |u| [u.takeoff, u.id] }
 
     return unless params[:flight]
 
