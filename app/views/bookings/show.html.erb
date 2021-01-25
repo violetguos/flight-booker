@@ -1,8 +1,12 @@
 <p id="notice"><%= notice %></p>
-  <%= @booking.flight.from_airport.code%>to <%=  @booking.flight.to_airport.code %>
+  <%= @booking.flight.from_airport.code%> to <%= @booking.flight.to_airport.code %>
+  <br>
+  <%= @booking.flight.takeoff_day %>
+  <br>
   <% @booking.passengers.each do |p|%>
-    <%= p.first_name%>
+    <%= p.first_name%> <%=p.last_name%> <%=p.email%>
   <%end%>
 
+<%= link_to "Proceed to pay for tickets", new_charge_path(@booking) %>
 <%= link_to 'Edit', edit_booking_path(@booking) %> |
 <%= link_to 'Back', bookings_path %>
