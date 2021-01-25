@@ -20,6 +20,7 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'simple_form', '~> 5.0', '>= 5.0.3'
 
+gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 gem 'stripe'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

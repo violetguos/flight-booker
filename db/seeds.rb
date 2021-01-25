@@ -5,29 +5,35 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
+require 'date'
+require 'time'
 
 ActiveRecord::Base.transaction do
-  Flight.destroy_all
   Airport.destroy_all
+  Flight.destroy_all
   Passenger.destroy_all
   Booking.destroy_all
 end
 
-AIRPORTS = %w[SFO LAX JFK]
+AIRPORTS = { 'ATL' => %w[Atlanta GA],
+             'LAX' => ['Los Angeles', 'CA'],
+             'JFK' => ['New York', 'NY'],
+             'SFO' => ['San Francisco', 'CA'],
+             'ORD' => %w[Chicago IL],
+             'DFW' => %w[Dallas TX] }
 
-AIRPORTS.each do |a|
-  Airport.create(code: a)
+AIRPORTS.each do |code, location|
+  Airport.create(code: code, city: location[0], state: location[1])
 end
 
-# Date.new(2021, 5, 1).upto(Date.new(2021, 9, 30)).each do |date|
-
-Flight.create([{ from_airport_id: Airport.all[0].id, to_airport_id: Airport.all[1].id,
-                 takeoff_day: Date.new(2021, 5, 1) },
-               { from_airport_id: Airport.all[0].id, to_airport_id: Airport.all[1].id,
-                 takeoff_day: Date.new(2021, 5, 2) },
-               { from_airport_id: Airport.all[1].id, to_airport_id: Airport.all[2].id,
-                 takeoff_day: Date.new(2021, 5, 3) },
-               { from_airport_id: Airport.all[2].id, to_airport_id: Airport.all[1].id,
-                 takeoff_day: Date.new(2021, 5, 7) }])
-p = Passenger.create(first_name: 'Michael', last_name: 'Scott', email: 'michael@dm.com')
-Booking.create(flight_id: Flight.first.id, passengers: [p])
+Airport.all.each do |air|
+  from_airport = air
+  to_airport = Airport.all.sample
+  to_airport = Airport.all.sample until to_airport != from_airport
+  time = Faker::Time.between(from: Time.now + 1, to: Time.now + 200)
+  date = Date.today + rand(200)
+  duration = rand(100...300)  # in minutes
+  Flight.create({ from_airport_id: from_airport.id, to_airport_id: to_airport.id, takeoff_day: date,
+                  takeoff_time: time, duration: duration })
+end
