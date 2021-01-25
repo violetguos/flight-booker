@@ -14,11 +14,9 @@ class BookingsController < ApplicationController
 
   # GET /bookings/new
   def new
-    @booking = if booking_params
-                 Booking.new(booking_params)
-               else
-                 Booking.new
-               end
+    @booking = Booking.new
+    @booking.flight = Flight.find(params[:booking][:flight_id])
+    @booking.passengers.build
   end
 
   # GET /bookings/1/edit

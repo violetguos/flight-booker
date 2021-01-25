@@ -1,17 +1,11 @@
 <h1>results</h1>
 
-
-
-
-
-<%= simple_form_for :booking, url: new_booking_path, method: "GET", local: true do |f| %>
+<%= form_for :booking, url: new_booking_path, method: "GET", local: true do |f| %>
   <% @flights.each do |flt|%>
     <%=flt.from_airport.code%> to <%=flt.to_airport.code%> 
     <%= f.radio_button :flight_id, flt.id %>
   <%end%>
 
-  <%=f.simple_fields_for :passengers do |p| %>
-    <%= p.text_field :first_name  %>
-  <%end%>
+  
 <%= f.submit "Select Flight"%>
 <%end%>
