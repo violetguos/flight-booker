@@ -1,12 +1,44 @@
 <h1>results</h1>
+<table class="table">
+<thead>
+  <th>Departure</th>
+  <th>Arrival</th>
+  <th>Take off</th>
+  <th>Duration</th>
+  <th>Select for booking</th>
+</thead>
+
+<tbody>
 
 <%= form_for :booking, url: new_booking_path, method: "GET", local: true do |f| %>
+
   <% @flights.each do |flt|%>
-    <%=flt.from_airport.city%> <%=flt.from_airport.state%> to <%=flt.to_airport.city%> <%=flt.to_airport.state%>
-    <%=flt.from_airport.code%> to <%=flt.to_airport.code%> 
-    <%= f.radio_button :flight_id, flt.id %>
+    <tr>
+      <td>
+        <%=flt.from_airport.city%> <%=flt.from_airport.state%> <%=flt.from_airport.code%>
+      </td>
+      <td>
+      <%=flt.to_airport.city%> <%=flt.to_airport.state%>  <%=flt.to_airport.code%> 
+      </td>
+
+      <td>
+      x
+      </td>
+
+      <td>
+      x
+      </td>
+
+      <td>
+          <%= f.radio_button :flight_id, flt.id %>
+
+      </td>
+     
+    </tr>
   <%end%>
 
-  
 <%= f.submit "Select Flight"%>
 <%end%>
+
+</tbody>
+</table>
