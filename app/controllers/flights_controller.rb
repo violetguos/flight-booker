@@ -9,7 +9,7 @@ class FlightsController < ApplicationController
 
     return unless params[:flight]
 
-    flight_params.reject! { |_, v| v.blank? }
+    params[:flight].reject! { |_, v| v.blank? }
     @flights = Flight.search(params[:flight])
   end
 

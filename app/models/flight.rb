@@ -2,10 +2,13 @@ class Flight < ApplicationRecord
   belongs_to :from_airport, class_name: 'Airport'
   belongs_to :to_airport, class_name: 'Airport'
   has_many :bookings
+
   def self.search(search)
     if search
-      flights = Flight.where(['from_airport_id = ? and to_airport_id = ?', search[:from_airport_id],
-                              search[:to_airport_id]])
+      flights = Flight.all
+      flights = Flight.where('from_airport_id = ?', search[:from_airport_id]) if search[:from_airport_id]
+      flights = Flight.where('to_airport_id = ?', search[:to_airport_id]) if search[:to_airport_id]
+      flights = Flight.where('takeoff_day = ?', search[:takeoff_day]) if search[:takeoff_day]
     end
     flights
   end
