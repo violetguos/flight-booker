@@ -19,6 +19,8 @@
 
 <%if @flights%>
   <%= render 'results' %>
+<%else%>
+  <p>Please select at least one flight option</p>
 <%end%>
 
 <%= link_to 'New Flight', new_flight_path %>
