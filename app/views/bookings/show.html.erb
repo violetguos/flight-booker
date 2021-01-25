@@ -1,7 +1,10 @@
 <p id="notice"><%= notice %></p>
   <%= @booking.flight.from_airport.code%> to <%= @booking.flight.to_airport.code %>
   <br>
-  <%= @booking.flight.takeoff_day %>
+  Take off
+  <%= @booking.flight.takeoff_day %>  <%= @booking.flight.takeoff_time.strftime("%H:%M:%S") %>
+  <br>
+  <%= @booking.flight.duration / 60.to_i %> hours and <%=@booking.flight.duration % 60.to_i%> minutes
   <br>
   <% @booking.passengers.each do |p|%>
     <%= p.first_name%> <%=p.last_name%> <%=p.email%>

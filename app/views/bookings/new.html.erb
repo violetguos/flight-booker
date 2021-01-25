@@ -3,9 +3,13 @@
 <%= form_with(model: @booking, local: true) do |f|%>
   <%= f.hidden_field :flight_id, value: params[:booking][:flight_id]%>
   <%= f.fields_for :passengers do |p| %>
-    <%= p.text_field :first_name  %>
-    <%= p.text_field :last_name  %>
-    <%= p.text_field :email  %>
+    <%= p.label :first_name, 'Your Name' %>
+    <%= p.text_field :first_name  , label: "First name"%>
+    <%= p.label :first_name, 'Lastname' %>
+
+    <%= p.text_field :last_name, label: "Last name"  %>
+    <%=p.label :email, 'email@example.com'%>
+    <%= p.text_field :email %>
 
   <%end%>
   <%=f.submit 'Book'%>
