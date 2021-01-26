@@ -11,6 +11,7 @@
         collection: @airport_options, label: "To", required: false %>
   <%= f.input :takeoff, as: :select, collection: @date_options,
     label: "Date", required: false %>
+
   <%= f.input :num_passenger, as: :select, collection: (1..4), selected: 1,
     label: "Number of passengers", required: true%>
   <%= f.submit "Search"%>

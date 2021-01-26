@@ -1,3 +1,5 @@
+require 'active_support/core_ext'
+
 class FlightsController < ApplicationController
   before_action :set_flight, only: %i[show edit update destroy]
 
@@ -5,7 +7,7 @@ class FlightsController < ApplicationController
   # GET /flights.json
   def index
     @airport_options = Airport.all.map { |u| [u.code, u.id] }
-    @date_options = Flight.all.map { |u| [u.takeoff, u.id] }
+    @date_options = Flight.all.map { |u| u.takeoff.to_date }.uniq
 
     return unless params[:flight]
 
@@ -74,6 +76,6 @@ class FlightsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def flight_params
-    params.require(:flight).permit(:from_airport_id, :to_airport_id, :takeoff_day, :num_passenger)
+    params.require(:flight).permit(:from_airport_id, :to_airport_id, :takeoff, :num_passenger)
   end
 end
