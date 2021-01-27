@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head></head>
+  <head>
+    <title>Buy cool new product</title>
+       <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+  </head>
+
   <body>
-    <%= yield %>
+    <%= yield%>
   </body>
+
 </html>
