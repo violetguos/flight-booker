@@ -5,16 +5,49 @@
 
  
 <%= simple_form_for :flight, url: root_path, method: "GET", local: true do |f| %>
-  <%= f.input :from_airport_id, as: :select, 
-        collection: @airport_options, label: "From", required: false %>
-  <%= f.input :to_airport_id, as: :select,  
-        collection: @airport_options, label: "To", required: false %>
-  <%= f.input :takeoff, as: :select, collection: @date_options,
-    label: "Date", required: false %>
+    
 
-  <%= f.input :num_passenger, as: :select, collection: (1..4), selected: 1,
-    label: "Number of passengers", required: true%>
-  <%= f.submit "Search"%>
+  <div class="control">
+    <label class="label">From</label>
+    <div class="select">
+
+      <%= f.input :from_airport_id, as: :select, 
+      collection: @airport_options, required: false , wrapper: false, label: false%>
+    </div>
+  </div>
+    
+
+  <div class="control">
+    <label class="label">To</label>
+    <div class="select">
+
+      <%= f.input :to_airport_id, as: :select,  
+        collection: @airport_options, required: false , wrapper: false, label: false%>
+    </div>
+  </div>
+
+
+     
+
+  <div class="control">
+    <label class="label">Date</label>
+    <div class="select">
+      <%= f.input :takeoff, as: :select, collection: @date_options,
+       required: false , wrapper: false, label: false%>
+    </div>      
+  </div>
+
+  <div class="control">
+    <label class="label">Number of passengers</label>
+    <div class="select">
+      <%= f.input :num_passenger, as: :select, collection: (1..4), selected: 1,
+       required: true, wrapper: false, label: false%>
+    </div>
+  </div>
+
+  <div class="control">
+    <%= f.submit "Search", class: "button is-primary"%>
+  </div>
 <% end %>
 
 

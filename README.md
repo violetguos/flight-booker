@@ -36,6 +36,13 @@ I had a very hacky line for this.
 
 I know, it's terrible... I manually concatenated a string to query for anything from 00:00:00 to 23:59:59 on a given day. This is hard to read, and extremely prone to typos and bugs. I turned to Odin's community for help, and now I'm using `Flight.where(takeoff: Date.parse(search[:takeoff]).all_day)`.
 
+### Webpack for front end
+
+Previously, I installed `Bulma` from rails gem. Following the latest trend of JS controlled front end, I tried to use `yarn` instead of `gem` to install Bulma. This also means that I'm applying `webpack` instead of Rails' asset pipeline.
+
+Here's my notes on that
+https://github.com/violetguos/ror-practice/blob/master/ror-notes/webpack.md
+
 ## Future
 
 - Obfuscate the web query URL. I can't figure out how to render a query `/flights?flight[from_airport_id]=8` as `//flights?flight[from_airport]=SFO`. It can't be good to expose your internal DB setup.
