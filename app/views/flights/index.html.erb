@@ -47,7 +47,7 @@
   </div>
 <% end %>
 
-<% if @flights.empty?%>
+<% if @flights && @flights.empty?%>
   <p>Sorry, we cannot find a flight of your choosing. Please select another flight.</p>
 <%elsif @flights%>
   <%= render 'results' %>

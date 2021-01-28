@@ -1,8 +1,23 @@
 <nav class="breadcrumb is-centered" role="navigation" aria-label="breadcrumbs">
   <ul>
-    <li><%= link_to 'search', root_path %></li>
-    <li><%= link_to 'booking', bookings_path %></li>
-    <li><%= link_to 'payment', new_charge_path %></li>
-    <li class="is-active"><a href="#" aria-current="page">Breadcrumb</a></li>
+    <% if current_page?(root_path) %>
+      <li class="is-active"><a href="#" aria-current="page">search</a></li>
+    <%else%>
+      <li><%= link_to 'search', root_path %></li>
+    <%end%>
+
+    <% if current_page?(bookings_path) %>
+      <li class="is-active"><a href="#" aria-current="page">booking</a></li>
+    <%else%>
+      <li><%= link_to 'booking', bookings_path %></li>
+    <%end%>
+
+    <% if current_page?(new_charge_path) %>
+      <li class="is-active"><a href="#" aria-current="page">payment</a></li>
+    <%else%>
+      <li><%= link_to 'payment', new_charge_path %></li>
+    <%end%>
+
+
   </ul>
 </nav>
