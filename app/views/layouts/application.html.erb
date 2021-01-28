@@ -10,10 +10,15 @@
   </head>
 
   <body>
-    <%#= render 'components/header'%>
+    <%= render 'components/header'%>
     <section class="section">
       <div class="container">
-        <%= yield %>  
+        
+        <div class="columns is-mobile">
+          <div class="column is-half is-offset-one-quarter">
+            <%= yield %>  
+          </div>
+        </div>
       </div>
     </section>
   </body>
