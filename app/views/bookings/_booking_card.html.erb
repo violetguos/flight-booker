@@ -35,13 +35,14 @@
         <%= p.first_name%> <%=p.last_name%> <%=p.email%>
       <%end%>
     </div>
-        
+  <div class="control">
+  <button class="button is-warning">
+    <%= link_to "Proceed to pay for tickets", new_charge_path(booking: booking) %>
+  </button>
+</div>      
 
   </div>
+
 </div>
 
-<div class="control">
-  <button class="button is-warning">
-    <%= link_to "Proceed to pay for tickets", new_charge_path(booking) %>
-  </button>
-</div>
+

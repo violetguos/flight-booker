@@ -9,13 +9,13 @@
     <% if current_page?(bookings_path) %>
       <li class="is-active"><a href="#" aria-current="page">booking</a></li>
     <%else%>
-      <li><%= link_to 'booking', bookings_path %></li>
+      <li>booking</li>
     <%end%>
 
     <% if current_page?(new_charge_path) %>
       <li class="is-active"><a href="#" aria-current="page">payment</a></li>
     <%else%>
-      <li><%= link_to 'payment', new_charge_path %></li>
+      <li>payment</li>
     <%end%>
 
 

@@ -1,6 +1,8 @@
 class ChargesController < ApplicationController
   def new; end
 
+  def success; end
+
   def create
     # Amount in cents
     @amount = 500
@@ -19,6 +21,13 @@ class ChargesController < ApplicationController
     flash[:notice] = 'Fictional ticket booked!' if charge
   rescue Stripe::CardError => e
     flash[:error] = e.message
-    redirect_to root_path
+    # redirect_to success_charge_path(charge)
+    render 'success'
+  end
+
+  private
+
+  def charge_params
+    params.require(:charge).permit(:id)
   end
 end
