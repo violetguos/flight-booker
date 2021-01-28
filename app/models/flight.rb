@@ -8,9 +8,9 @@ class Flight < ApplicationRecord
       nil
     elsif search
       flights = Flight.all
-      flights = Flight.where('from_airport_id = ?', search[:from_airport_id]) if search[:from_airport_id]
-      flights = Flight.where('to_airport_id = ?', search[:to_airport_id]) if search[:to_airport_id]
-      flights = Flight.where(takeoff: Date.parse(search[:takeoff]).all_day) if search[:takeoff]
+      flights = flights.where('from_airport_id = ?', search[:from_airport_id]) if search[:from_airport_id]
+      flights = flights.where('to_airport_id = ?', search[:to_airport_id]) if search[:to_airport_id]
+      flights = flights.where(takeoff: Date.parse(search[:takeoff]).all_day) if search[:takeoff]
 
     end
     flights

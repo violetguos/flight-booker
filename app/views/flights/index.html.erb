@@ -24,10 +24,7 @@
       <%= f.input :to_airport_id, as: :select,  
         collection: @airport_options, required: false , wrapper: false, label: false%>
     </div>
-  </div>
-
-
-     
+  </div> 
 
   <div class="control">
     <label class="label">Date</label>
@@ -50,9 +47,11 @@
   </div>
 <% end %>
 
-
-<%if @flights%>
+<% if @flights.empty?%>
+  <p>Sorry, we cannot find a flight of your choosing. Please select another flight.</p>
+<%elsif @flights%>
   <%= render 'results' %>
+
 <%else%>
   <p>Please select at least one flight option</p>
 <%end%>
