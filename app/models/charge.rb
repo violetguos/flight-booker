@@ -1,3 +1,3 @@
 class Charge < ApplicationRecord
-  has_one :booking
+  belongs_to :booking
 end
