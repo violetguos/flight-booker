@@ -11,6 +11,7 @@
   <tbody>
 
     <%= form_for :booking, url: new_booking_path, method: "GET", local: true do |f| %>
+      <%= f.hidden_field :num_passenger, value: params[:flight][:num_passenger]%>
 
       <% @flights.each do |flt|%>
         <tr>

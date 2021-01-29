@@ -23,17 +23,16 @@
     <%end%>
 
     <div class="content">
-      <%= booking.flight.from_airport.code%> to <%= booking.flight.to_airport.code %>
+      From <%= booking.flight.from_airport.code%> to <%= booking.flight.to_airport.code %>
       <br>
       Take off
+      <time datetime="2016-1-1"><%=booking.flight.takeoff%></time>
+
         
+      <br>
       <%= booking.flight.duration / 60.to_i %> hours and <%=booking.flight.duration % 60.to_i%> minutes
       <br>
-      <br>
-      <time datetime="2016-1-1"><%=booking.flight.takeoff%></time>
-       <% booking.passengers.each do |p|%>
-        <%= p.first_name%> <%=p.last_name%> <%=p.email%>
-      <%end%>
+       
     </div>
   <div class="control">
   <button class="button is-warning">

@@ -1,30 +1,32 @@
-<h1>New Booking</h1>
+<h1 class="title">New Booking</h1>
 
 <%= form_with(model: @booking, local: true) do |f|%>
   <%= f.hidden_field :flight_id, value: params[:booking][:flight_id]%>
-
-  <%= f.fields_for :passengers do |p| %>
-    <div class="field">
-      <%= p.label :first_name, 'Your Name' , class: "label"%>
-      <div class="control">
-        <%= p.text_field :first_name, class:"input", type:"text", placeholder:"e.g. Michael"%>
+  <% params[:booking][:num_passenger].to_i.times do %>
+    <h2 class="title">New Passenger<h2>
+    <%= f.fields_for :passengers do |p| %>
+      <div class="field">
+        <%= p.label :first_name, 'Your Name' , class: "label"%>
+        <div class="control">
+          <%= p.text_field :first_name, class:"input", type:"text", placeholder:"e.g. Michael"%>
+        </div>
       </div>
-    </div>
 
-    <div class="field">
-      <%= p.label :first_name, 'Lastname', class: "label" %>
-      <div class="control">
+      <div class="field">
+        <%= p.label :first_name, 'Lastname', class: "label" %>
+        <div class="control">
 
-        <%= p.text_field :last_name, class:"input", type:"text", placeholder: "e.g. Scott" %>
+          <%= p.text_field :last_name, class:"input", type:"text", placeholder: "e.g. Scott" %>
+        </div>
       </div>
-    </div>
 
-    <div class="field">
-      <%=p.label :email, 'Email'%>
-      <div class="control">
-        <%= p.text_field :email, class:"input", type:"text", placeholder: "e.g. michael@dm.com" %>
+      <div class="field">
+        <%=p.label :email, 'Email'%>
+        <div class="control">
+          <%= p.text_field :email, class:"input", type:"text", placeholder: "e.g. michael@dm.com" %>
+        </div>
       </div>
-    </div>
+    <%end%>
 
   <%end%>
   <div class="control">
