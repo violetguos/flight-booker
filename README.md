@@ -1,6 +1,6 @@
 # Flight booker
 
-- project from Odin to practise building nested forms
+- project from Odin to practice building nested forms
 
 ## Functionalities
 
@@ -9,7 +9,23 @@
 - Enter passenger information for all passengers
 - Enter billing information
 
+## Extra flair: Stripe
+
+I integrated a dummy Stripe payment processor. Since I don't have a private API key, the payment never really goes through, and no transactions ever happen.
+
+However, Stripe's latest documentation isn't very rails-friendly. It's mostly handled in JavaScript. I created a `Charge` model, which has one `Booking`.
+
+In the [previous edition](https://stripe.com/docs/legacy-checkout/rails), Stripe decides to have a stand along HTML webpage in the checkout stage. Everything (e.g. styling) no longer applies if you follow their set up. I went into `app/views/layouts/charges.html.erb` and changed the meta tags. I also got rid of their old Javascript event listener after clicking on submit payment. Instead, it redirects locally.
+
 ## Lessons learned
+
+### Multiple foreign key dependencies
+
+`->` indicates `belongs_to`:
+
+flight & passenger -> booking -> Stripe charge
+
+I learned to use hidden field, permitting foreign attributes and passing arguments into other controllers' actions and views.
 
 ### Nested form
 
@@ -40,8 +56,7 @@ I know, it's terrible... I manually concatenated a string to query for anything 
 
 Previously, I installed `Bulma` from rails gem. Following the latest trend of JS controlled front end, I tried to use `yarn` instead of `gem` to install Bulma. This also means that I'm applying `webpack` instead of Rails' asset pipeline.
 
-Here's my notes on that
-https://github.com/violetguos/ror-practice/blob/master/ror-notes/webpack.md
+My notes on webpack [here](https://github.com/violetguos/ror-practice/blob/master/ror-notes/webpack.md)
 
 ## Future
 
