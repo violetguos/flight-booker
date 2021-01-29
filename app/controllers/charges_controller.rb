@@ -1,5 +1,8 @@
 class ChargesController < ApplicationController
-  def new; end
+  def new
+    @charge = Charge.new
+    @booking_charged = Booking.find(params[:booking_id])
+  end
 
   def success; end
 
@@ -12,22 +15,22 @@ class ChargesController < ApplicationController
                                          source: params[:stripeToken]
                                        })
 
-    charge = Stripe::Charge.create({
-                                     customer: customer.id,
-                                     amount: @amount,
-                                     description: 'Rails Stripe customer',
-                                     currency: 'usd'
-                                   })
-    flash[:notice] = 'Fictional ticket booked!' if charge
+    @charge = Stripe::Charge.create({
+                                      customer: customer.id,
+                                      amount: @amount,
+                                      description: 'Rails Stripe customer',
+                                      currency: 'usd'
+                                    })
+    flash[:notice] = 'Fictional ticket booked!' if @charge
   rescue Stripe::CardError => e
     flash[:error] = e.message
-    # redirect_to success_charge_path(charge)
+    # redirect_to success_charge_path(@charge)
     render 'success'
   end
 
   private
 
   def charge_params
-    params.require(:charge).permit(:id)
+    params.require(:charge).permit(:id, :booking_id)
   end
 end

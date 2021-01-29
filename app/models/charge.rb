@@ -1,3 +1,3 @@
-class Passenger < ApplicationRecord
-  belongs_to :booking
+class Charge < ApplicationRecord
+  has_one :booking
 end

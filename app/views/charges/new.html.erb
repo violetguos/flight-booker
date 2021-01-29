@@ -1,10 +1,17 @@
+<div class="notification is-warning">
+  <button class="delete"></button>
+  This is built with Stripe's test API key! Proceed with the <strong> default credit
+    card </strong> provided below!
+</div>
+
 
 <div class="card">
   <div class="card-content">
+  <h4 class="subtitle is-4">Flight <%= @booking_charged.flight.from_airport.code%> to  <%= @booking_charged.flight.to_airport.code%></h1>
+  <p>For <%= @booking_charged.passengers.length%> passenger(s)<p>
   
   <span>
-    This is built with Stripe's test API key! Proceed with the default credit
-    card provided below!
+    
   </span>
   <%= form_tag charges_path do %>
     <article class="message is-warning">
