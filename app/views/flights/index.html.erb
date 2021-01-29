@@ -30,7 +30,7 @@
     <label class="label">Date</label>
     <div class="select">
       <%= f.input :takeoff, as: :select, collection: @date_options,
-       required: false , wrapper: false, label: false%>
+       required: false , wrapper: false, label: false, selected: @date_options.first%>
     </div>      
   </div>
 
@@ -42,6 +42,7 @@
     </div>
   </div>
 
+  <br>
   <div class="control">
     <%= f.submit "Search", class: "button is-primary"%>
   </div>

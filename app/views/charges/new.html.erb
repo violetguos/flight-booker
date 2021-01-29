@@ -1,6 +1,11 @@
 
 <div class="card">
   <div class="card-content">
+  
+  <span>
+    This is built with Stripe's test API key! Proceed with the default credit
+    card provided below!
+  </span>
   <%= form_tag charges_path do %>
     <article class="message is-warning">
       <div class="message-header">
@@ -11,9 +16,10 @@
           <p><%= flash[:error] %></p>
         </div>
       <% end %>
-      <p>Warning! This is a built with Stripe's test API key! Proceed with caution!</p>
       <label class="amount message-body">
-        <span>Amount: $5.00</span>
+        <span>
+          Amount: $5.00
+        </span>
       </label>
     </article>
 
@@ -44,7 +50,7 @@
     </div>
   </div>
 
-  <button type="submit">Submit Payment</button>
+  <button type="submit" class="button is-warning">Submit Payment</button>
   <% end %>
 
   </div>
