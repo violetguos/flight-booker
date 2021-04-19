@@ -38,6 +38,7 @@ group :development, :test do
   gem 'rubocop-rails', '~> 2.8', '>= 2.8.1'
   gem 'sqlite3', '~> 1.4'
 end
+gem "letter_opener", :group => :development
 
 group :production do
   gem 'pg'
