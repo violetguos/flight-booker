@@ -1,9 +1,10 @@
 class PassengerMailer < ApplicationMailer
   default from: 'notifications@example.com'
+
   def thank_you_email
-    @passenger = params[:passenger]
-    @url = bookings_url
-    mail(to: @passenger.email,
-         subject: "Thank you for booking a Flight!")
+    @booking = Booking.find(params[:booking_id])
+    @url = booking_url(@booking)
+    mail(to: @booking.passengers.pluck(:email),
+         subject: "Thank you for booking Flight #{@booking.flight.id}!")
   end
 end

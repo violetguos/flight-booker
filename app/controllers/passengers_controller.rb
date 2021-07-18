@@ -26,7 +26,6 @@ class PassengersController < ApplicationController
 
     respond_to do |format|
       if @passenger.save
-        PassengerMailer.with(passenger: @passenger).thank_you_email.deliver_now
         format.html { redirect_to @passenger, notice: 'Passenger was successfully created.' }
         format.json { render :show, status: :created, location: @passenger }
       else
@@ -41,7 +40,6 @@ class PassengersController < ApplicationController
   def update
     respond_to do |format|
       if @passenger.update(passenger_params)
-        PassengerMailer.with(passenger: @passenger).thank_you_email.deliver_now
         format.html { redirect_to @passenger, notice: 'Passenger was successfully updated.' }
         format.json { render :show, status: :ok, location: @passenger }
       else

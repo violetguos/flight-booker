@@ -1,4 +1,8 @@
-Welcome to example.com, <%= @passenger.first_name %>
+Welcome to example.com, <ul>
+    <% @booking.passengers.each do |passenger| %>
+      <li><%= passenger.first_name %></li>
+    <% end %>
+  </ul>
 ===============================================
 
 You have successfully signed up to example.com,

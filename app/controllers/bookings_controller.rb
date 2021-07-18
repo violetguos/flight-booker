@@ -29,6 +29,7 @@ class BookingsController < ApplicationController
 
     respond_to do |format|
       if @booking.save
+        PassengerMailer.with(booking_id: @booking.id).thank_you_email.deliver_later
         format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
         format.json { render :show, status: :created, location: @booking }
       else
@@ -71,6 +72,6 @@ class BookingsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def booking_params
-    params.require(:booking).permit(:flight_id, passengers_attributes: %i[id first_name last_name email])
+    params.require(:booking).permit(:flight_id, :num_passenger, passengers_attributes: %i[id first_name last_name email])
   end
 end
