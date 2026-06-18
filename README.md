@@ -61,3 +61,163 @@ My notes on webpack [here](https://github.com/violetguos/ror-practice/blob/maste
 ## Future
 
 - Obfuscate the web query URL. I can't figure out how to render a query `/flights?flight[from_airport_id]=8` as `//flights?flight[from_airport]=SFO`. It can't be good to expose your internal DB setup.
+
+## Upgrade - session vs hidden field
+
+### 1. **Set Session (When User Selects Flight)**
+
+```ruby
+# controllers/flight_selection_controller.rb
+def select_flight
+  @flight = Flight.find_by(id: params[:flight_id])
+  
+  # Validate flight exists (from seeded DB)
+  unless @flight
+    redirect_to flights_path, alert: "Invalid flight selected"
+    return
+  end
+  
+  # Store in session
+  session[:flight_id] = @flight.id
+  session[:flight_selected_at] = Time.current  # Optional: track timing
+  
+  redirect_to booking_form_path
+end
+```
+
+### 2. **Access Session (In Booking Form Controller)**
+
+```ruby
+# controllers/bookings_controller.rb
+def new
+  # Validate session has flight_id
+  validate_flight_session!
+  
+  @flight = Flight.find(session[:flight_id])
+  @booking = Booking.new
+end
+
+def create
+  validate_flight_session!
+  
+  @booking = Booking.new(booking_params.merge(flight_id: session[:flight_id]))
+  
+  if @booking.save
+    clear_flight_session  # Clear after successful booking
+    redirect_to @booking, notice: "Booking confirmed!"
+  else
+    render :new
+  end
+end
+
+private
+
+def booking_params
+  params.require(:booking).permit(:passenger_name, :seat_preference, :other_attribute...)
+  # Note: DON'T permit :flight_id - it comes from session
+end
+```
+
+### 3. **Validation Helper (Crucial Security)**
+
+```ruby
+# Add to bookings_controller.rb (or concerns)
+private
+
+def validate_flight_session!
+  unless session[:flight_id]
+    redirect_to flights_path, alert: "Please select a flight first"
+    return false
+  end
+  
+  unless Flight.exists?(session[:flight_id])
+    clear_flight_session
+    redirect_to flights_path, alert: "Flight no longer available"
+    return false
+  end
+  
+  true
+end
+
+def clear_flight_session
+  session[:flight_id] = nil
+  session[:flight_selected_at] = nil
+end
+```
+
+### 4. **Form View (Using Session)**
+
+```erb
+# views/bookings/new.html.erb
+<%= form_with(model: @booking) do |f| %>
+  <!-- Hidden field from session (optional - can also pass in controller) -->
+  <%= f.hidden_field :flight_id, value: session[:flight_id] %>
+  
+  <!-- Other booking fields -->
+  <%= f.label :passenger_name %>
+  <%= f.text_field :passenger_name %>
+  
+  <%= f.submit "Book Flight" %>
+<% end %>
+
+<!-- Show user what flight they selected -->
+<p>Flight: <%= @flight.number %> to <%= @flight.destination %></p>
+```
+
+### 5. **Clear Session on Logout (Security)**
+
+```ruby
+# controllers/users/sessions_controller.rb
+def destroy
+  # Clear all booking-related session data
+  session[:flight_id] = nil
+  session[:flight_selected_at] = nil
+  
+  # Standard logout
+  reset_session
+  redirect_to root_path, notice: "Logged out successfully"
+end
+```
+
+### 6. **Optional: Session Timeout**
+
+```ruby
+# Add to validate_flight_session! if you want expiration
+def validate_flight_session!
+  unless session[:flight_id]
+    redirect_to flights_path, alert: "Please select a flight first"
+    return false
+  end
+  
+  # Expire session after 15 minutes (optional)
+  if session[:flight_selected_at] && 
+     (Time.current - session[:flight_selected_at]) > 15.minutes
+    clear_flight_session
+    redirect_to flights_path, alert: "Flight selection expired. Please select again."
+    return false
+  end
+  
+  unless Flight.exists?(session[:flight_id])
+    clear_flight_session
+    redirect_to flights_path, alert: "Flight no longer available"
+    return false
+  end
+  
+  true
+end
+```
+
+### Key Security Points
+
+| Crucial Practice | Why |
+|-----------------|-----|
+| **Validate flight exists** | Prevents using stale/invalid session IDs |
+| **Don't permit `:flight_id`** | Force it from session, not user params [1] |
+| **Clear session after use** | Prevents reuse of old session data |
+| **Clear on logout** | Security cleanup |
+| **Optional timeout** | Prevents abandoned sessions |
+
+This pattern ensures `flight_id` comes **only from your seeded DB** via session, not from user-modifiable form data.
+
+Sources
+[1] How to correctly pass through foreign keys in Rails form_for https://stackoverflow.com/questions/27792256/how-to-correctly-pass-through-foreign-keys-in-rails-form-for

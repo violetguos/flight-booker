@@ -7,11 +7,11 @@ class Flight < ApplicationRecord
     if search.empty?
       nil
     elsif search
-      flights = Flight.all
-      flights = flights.where('from_airport_id = ?', search[:from_airport_id]) if search[:from_airport_id]
-      flights = flights.where('to_airport_id = ?', search[:to_airport_id]) if search[:to_airport_id]
-      flights = flights.where(takeoff: Date.parse(search[:takeoff]).all_day) if search[:takeoff]
-
+      flights = Flight
+                .from_airport(search[:from_airport_id])
+                .to_airport(search[:to_airport_id])
+                .on_date(search[:takeoff])
+      flights = flights.page(search[:page]).per(100) # if using Kaminari
     end
     flights
   end
